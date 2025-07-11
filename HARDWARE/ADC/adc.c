@@ -6,6 +6,12 @@
 uint16_t ADC_Values[3] = {0}; // 存储CH5/6/7的转换值
 #define  ADC1_DR_ADDRESS         ((uint32_t)0x4001204C) //ADC1外设地址
 
+/*
+  A7-->Z
+  A5-->X
+  A6-->Y
+*/
+
 /*=============================================初始化ADC=============================================*/															   
 void  Adc_Init(void)
 {    
@@ -48,15 +54,15 @@ void  Adc_Init(void)
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_6, 2, ADC_SampleTime_480Cycles);//配置ADC通道转换顺序，采样时间15个周期
   ADC_RegularChannelConfig(ADC1, ADC_Channel_7, 3, ADC_SampleTime_480Cycles);//配置ADC通道转换顺序，采样时间15个周期
 	
-	// 7. 配置ADC中断（EOC = 转换结束）
-	NVIC_InitTypeDef NVIC_InitStructure;
-	NVIC_InitStructure.NVIC_IRQChannel = ADC_IRQn;
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
+	// // 7. 配置ADC中断（EOC = 转换结束）
+	// NVIC_InitTypeDef NVIC_InitStructure;
+	// NVIC_InitStructure.NVIC_IRQChannel = ADC_IRQn;
+	// NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	// NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	// NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	// NVIC_Init(&NVIC_InitStructure);
 
-	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);  // 使能EOC中断
+	// ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);  // 使能EOC中断
 	
 	// 8. 使能DMA请求
 	ADC_DMARequestAfterLastTransferCmd(ADC1, ENABLE);
@@ -96,20 +102,5 @@ void DMA_Config(void)
   DMA_Cmd(DMA2_Stream0, ENABLE);  //开启DMA传输  
 }
 
-/*=============================================ADC中断服务函数（存储3个通道的值）=============================================*/															   
-void ADC_IRQHandler(void)
-{
-    static uint8_t channel_index = 0;
-
-    if (ADC_GetITStatus(ADC1, ADC_IT_EOC) == SET)
-    {
-        // 读取当前通道的转换值
-        ADC_Values[channel_index] = ADC_GetConversionValue(ADC1);
-
-        // 更新通道索引（循环0→1→2→0...）
-        channel_index = (channel_index + 1) % 3;
-
-        ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);  // 清除中断标志
-    }
-}
+/*=============================================ADC中断服务函数（存储3个通道的值）=============================================*/															  
 

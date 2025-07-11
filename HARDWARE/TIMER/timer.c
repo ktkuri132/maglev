@@ -33,7 +33,7 @@ void TIM7_Int_Init(u16 arr,u16 psc)//基本定时器
 	NVIC_Init(&NVIC_InitStructure);
 }
 
-//计算pid
+//计算pid 
 void TIM7_IRQHandler(void)
 {
 	if(TIM_GetITStatus(TIM7,TIM_IT_Update)==SET) //溢出中断
@@ -51,10 +51,10 @@ void TIM7_IRQHandler(void)
 		 }
 				PWM_Load(&motor_A,X_PID_OUT);//装载电机
 				PWM_Load(&motor_B,Y_PID_OUT);//装载电机
-//				PWM_Load(&motor_C,Z_PID_OUT);//装载电机
-//				PWM_Load(&motor_D,Z_PID_OUT);//装载电机
+				// PWM_Load(&motor_C,Z_PID_OUT);//装载电机
+				// PWM_Load(&motor_D,Z_PID_OUT);//装载电机
 
-	}
+		}
     TIM_ClearITPendingBit(TIM7,TIM_IT_Update); //清除中断标志位(从0开始计数)
 }
 
