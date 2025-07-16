@@ -54,21 +54,11 @@ void  Adc_Init(void)
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_6, 2, ADC_SampleTime_480Cycles);//配置ADC通道转换顺序，采样时间15个周期
   ADC_RegularChannelConfig(ADC1, ADC_Channel_7, 3, ADC_SampleTime_480Cycles);//配置ADC通道转换顺序，采样时间15个周期
 	
-	// // 7. 配置ADC中断（EOC = 转换结束）
-	// NVIC_InitTypeDef NVIC_InitStructure;
-	// NVIC_InitStructure.NVIC_IRQChannel = ADC_IRQn;
-	// NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-	// NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-	// NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	// NVIC_Init(&NVIC_InitStructure);
-
-	// ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);  // 使能EOC中断
-	
-	// 8. 使能DMA请求
+	// 7. 使能DMA请求
 	ADC_DMARequestAfterLastTransferCmd(ADC1, ENABLE);
 	ADC_DMACmd(ADC1, ENABLE);// 使能ADC DMA
 
-	// 9. 启动ADC
+	// 8. 启动ADC
 	ADC_Cmd(ADC1, ENABLE);
 	ADC_SoftwareStartConv(ADC1);  // 启动软件转换
 	

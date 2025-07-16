@@ -14,6 +14,12 @@
 #include "usart2.h"
 #include "usart3.h"
 #include "control.h"
+#include <kalman.h>
+
+extern Kalman kfp_x,kfp_y,kfp_z;
+
+extern uint16_t ADC_Old_Values[3];
+extern uint16_t ADC_Low_Values[3];
 
 int main(void) {
     /*===========================初始化===========================*/
@@ -29,8 +35,11 @@ int main(void) {
     uart2_init(9600);  // 串口2初始化(激光测距使用)必须放在激光前面初始化
     TOF10120_Init();
     usart3_init(115200);  // 串口3初始化（JY61P使用）
-    PWM_Load(&motor_C, 8400);
-    PWM_Load(&motor_D, 8400);
+    PWM_Load(&motor_C,-8000);
+    PWM_Load(&motor_D,-8000);
+    Kalman_Init(&kfp_x);
+    Kalman_Init(&kfp_y);
+    Kalman_Init(&kfp_z);
 
     while (1) {
         OLED_ShowString(0, 0, "X:", 8, 1);
@@ -52,12 +61,18 @@ int main(void) {
         OLED_ShowFNum(40, 48, SAngle.Angle[2], 6, 8, 1);
 
         OLED_Refresh();
-        // PWM_Load(&motor_A, 7000);  // 装载电机A
-        // PWM_Load(&motor_B, 7000);  // 装载电机A
+        // PWM_Load(&motor_A, -6000);  // 装载电机A
+        // PWM_Load(&motor_B,-6000);  // 装载电机A
         // PWM_Load(&motor_C, 7000);  // 装载电机A
         // PWM_Load(&motor_D, 7000);  // 装载电机A
-        command_1();
-        printf("X_PID_OUT: %d, Y_PID_OUT: %d\n", X_PID_OUT, Y_PID_OUT);
+        // command_1();
+        printf("%d,%d,%f,%f,%d,%d,%d,%d\r\n",
+            ADC_Values[0], ADC_Values[1],
+            kfp_x.out, kfp_y.out,
+            ADC_Low_Values[0], ADC_Low_Values[1],
+            X_PID_OUT, Y_PID_OUT
+       );
+       PID_Update();
         TOF10120_GetData();  // 测距
     }
 }

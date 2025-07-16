@@ -4,10 +4,16 @@
 #include "motor.h"
 #include "pid.h"
 #include "adc.h"
+#include <kalman.h>
 
 //int ms_flag = 0;//计时器开关，1为开启，0为关闭
 //uint32_t system_millis = 0; // 系统毫秒计数器
 uint8_t Pid_calculate_Flag = 1;//PID开关标志位（默认开）
+
+extern Kalman kfp_x,kfp_y,kfp_z;
+
+uint16_t ADC_Old_Values[3];
+uint16_t ADC_Low_Values[3];
 
 void TIM7_Int_Init(u16 arr,u16 psc)//基本定时器
 {
@@ -41,13 +47,30 @@ void TIM7_IRQHandler(void)
 //		//计时器
 //		if(ms_flag==1) system_millis++;
 //		else system_millis=0;
-		
+
+	    ADC_Low_Values[0] = ADC_Values[0];
+		ADC_Low_Values[1] = ADC_Values[1];
+		ADC_Low_Values[2] = ADC_Values[2];
+
 		//pid每10ms读一次
 		 if(Pid_calculate_Flag==1)
 		 {
-				X_PID_OUT = PID_Calculate(&X_PID,X_Set,ADC_Values[0]);	//X轴
-				Y_PID_OUT = PID_Calculate(&Y_PID,Y_Set,ADC_Values[1]);	//Y轴
-//				Z_PID_OUT = PID_Calculate(&Z_PID,Z_Set,ADC_Values[2]);	//Z轴
+			ADC_Low_Values[0] = ADC_Low_Values[0] * 0.3 + ADC_Old_Values[0] * 0.7; 
+			ADC_Low_Values[1] = ADC_Low_Values[1] * 0.3 + ADC_Old_Values[0] * 0.7; 
+			ADC_Low_Values[2] = ADC_Low_Values[2] * 0.3 + ADC_Old_Values[0] * 0.7; 
+
+			ADC_Old_Values[0] = ADC_Low_Values[0];
+			ADC_Old_Values[1] = ADC_Low_Values[1];
+			ADC_Old_Values[2] = ADC_Low_Values[2];
+
+
+			KalmanFilter(&kfp_x, ADC_Low_Values[0]);
+			KalmanFilter(&kfp_y, ADC_Low_Values[1]);
+			KalmanFilter(&kfp_z, ADC_Low_Values[2]);
+
+			X_PID_OUT = PID_Calculate(&X_PID,X_Set,kfp_x.out);	//X轴
+			Y_PID_OUT = PID_Calculate(&Y_PID,Y_Set,kfp_y.out);	//Y轴
+			// Z_PID_OUT = PID_Calculate(&Z_PID,Z_Set,ADC_Values[2]);	//Z轴
 		 }
 				PWM_Load(&motor_A,X_PID_OUT);//装载电机
 				PWM_Load(&motor_B,Y_PID_OUT);//装载电机

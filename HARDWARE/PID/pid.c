@@ -2,8 +2,8 @@
 #include "usart.h"
 #include <stdint.h>
 
-float X_Set=0;//X轴目标值
-float Y_Set=0;//Y轴目标值
+float X_Set=3850;//X轴目标值
+float Y_Set=3750;//Y轴目标值
 float Z_Set=0;//Z轴目标值
 
 int32_t X_PID_OUT;//左轮PWM输出值
@@ -17,6 +17,12 @@ PID_TypeDef Z_PID;//转向PID
 
 void PID_Init(void)//PID初始化
 {	
+	X_PID.KP = -80;
+    X_PID.KI = 0;
+	X_PID.KD = -50;
+	Y_PID.KP = X_PID.KP;
+    Y_PID.KI = X_PID.KI;
+	Y_PID.KD = X_PID.KD;
     X_PID.Err = 0.0f;
     X_PID.LastErr = 0.0f;
 	  X_PID.PenultErr = 0.0f;
@@ -39,6 +45,7 @@ void PID_Init(void)//PID初始化
 	  Z_PID.PID_Out = 0;
 }
 
+
 int16_t PID_Calculate(PID_TypeDef *PID,float TargetValue,int32_t CurrentValue)
 {
 	  // 1.计算偏差
@@ -47,10 +54,14 @@ int16_t PID_Calculate(PID_TypeDef *PID,float TargetValue,int32_t CurrentValue)
     PID->Integral += PID->Err;
 	  // 3.积分限幅
     PID->Integral=PID->Integral>1000?1000:PID->Integral<(-1000)?(-1000):PID->Integral;	
-	  // 4.PID算法实现
-    PID->PID_Out = PID->KP * PID->Err 								  /*比例*/
-				         + PID->KI * PID->Integral              /*积分*/
-			           + PID->KD * (PID->Err - PID->LastErr);	/*微分*/
+	  // 4.PID算法实现          
+    PID->a=PID->KP * PID->Err;
+        PID->b  =PID->KI * PID->Integral;
+        PID->c             =PID->KD * (PID->Err - PID->LastErr);
+//    PID->PID_Out = PID->KP * PID->Err 								  /*比例*/
+//				         + PID->KI * PID->Integral              /*积分*/
+//			           + PID->KD * (PID->Err - PID->LastErr);	/*微分*/
+       PID->PID_Out=PID->a+PID->b+PID->c;
 	  // 5.更新上一次误差
 	  PID->LastErr = PID->Err;//保留上一次的偏差
 	  // 6.限幅
@@ -84,4 +95,11 @@ void Z_PID_SET(float KP,float KI,float KD)//转向PID设置
 	Z_PID.KP=KP;
 	Z_PID.KI=KI;
 	Z_PID.KD=KD;
+}
+
+void PID_Update(){
+    Y_PID.KP=X_PID.KP;
+	Y_PID.KI=X_PID.KI;
+	Y_PID.KD=X_PID.KD;
+    
 }

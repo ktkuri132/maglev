@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\FWLIB\inc;..\HARDWARE\LED;..\HARDWARE\OLED;..\HARDWARE\ADC;..\HARDWARE\MOTOR;..\HARDWARE\PID;..\HARDWARE\TIMER;..\HARDWARE\TOF10120;..\HARDWARE\USART2;..\HARDWARE\JY61P;..\HARDWARE\USART3;..\HARDWARE\CONTROL</IncludePath>
+              <IncludePath>..\CORE;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\FWLIB\inc;..\HARDWARE\LED;..\HARDWARE\OLED;..\HARDWARE\ADC;..\HARDWARE\MOTOR;..\HARDWARE\PID;..\HARDWARE\TIMER;..\HARDWARE\TOF10120;..\HARDWARE\USART2;..\HARDWARE\JY61P;..\HARDWARE\USART3;..\HARDWARE\CONTROL;..\HARDWARE\KALMAN</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -678,6 +678,11 @@
               <FileName>control.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\CONTROL\control.c</FilePath>
+            </File>
+            <File>
+              <FileName>kalman.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\KALMAN\kalman.c</FilePath>
             </File>
           </Files>
         </Group>

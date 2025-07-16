@@ -12,11 +12,11 @@
 void command_1(void)//h>1cm，t>2s
 {
 	
-    X_Set=3650;//X轴目标值
-	Y_Set=2950;//Y轴目标值
-	Z_Set=0;//Z轴目标值	
-	X_PID_SET(-10,0,0);
-	Y_PID_SET(0,0,0);
+    // X_Set=3650;//X轴目标值
+	// Y_Set=2950;//Y轴目标值
+	// Z_Set=0;//Z轴目标值	
+	X_PID_SET(-0,0,0);
+	Y_PID_SET(-0,0,0);
 	Z_PID_SET(0,0,0);
 }
 

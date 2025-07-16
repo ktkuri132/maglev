@@ -1,5 +1,4 @@
 #include "motor.h"
-
 #include "pid.h"
 #include "timer.h"
 #include "usart.h"
@@ -13,8 +12,8 @@ motor motor_D = {0, 0, 0, 0, MOTOR_MAX_PWM};
  * @brief  统一初始化电机
  */
 void Motor_Init(void) {
-    Timer1_PWM_Init(8400 - 1, 50 - 1); /**< 84M/84=1Mhz的计数频率, 重装载值500, 所以PWM频率为1M/500=2Khz. */
-    Timer8_PWM_Init(8400 - 1, 50 - 1); /**< 84M/84=1Mhz的计数频率, 重装载值500, 所以PWM频率为1M/500=2Khz. */
+    Timer1_PWM_Init(8400 - 1, 1 - 1); /**< 84M/84=1Mhz的计数频率, 重装载值500, 所以PWM频率为1M/500=2Khz. */
+    Timer8_PWM_Init(8400 - 1, 1 - 1); /**< 84M/84=1Mhz的计数频率, 重装载值500, 所以PWM频率为1M/500=2Khz. */
 }
 
 /**
