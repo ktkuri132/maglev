@@ -63,8 +63,7 @@ void TIM7_IRQHandler(void)
 			ADC_Old_Values[1] = ADC_Low_Values[1];
 			ADC_Old_Values[2] = ADC_Low_Values[2];
 
-
-			KalmanFilter(&kfp_x, ADC_Low_Values[0]);
+            KalmanFilter(&kfp_x, ADC_Low_Values[0]);
 			KalmanFilter(&kfp_y, ADC_Low_Values[1]);
 			KalmanFilter(&kfp_z, ADC_Low_Values[2]);
 

@@ -31,12 +31,12 @@ int main(void) {
     DMA_Config();                                    // DMA初始化
     Motor_Init();                                    // PWM初始化
     PID_Init();                                      // PID初始化
-    TIM7_Int_Init(10000 - 1, 84 - 1);                // 定时器初始化10ms
+    TIM7_Int_Init(1000 - 1, 84 - 1);                // 定时器初始化10ms
     uart2_init(9600);  // 串口2初始化(激光测距使用)必须放在激光前面初始化
-    TOF10120_Init();
+    TOF10120_Init();                                                  
     usart3_init(115200);  // 串口3初始化（JY61P使用）
-    PWM_Load(&motor_C,-8000);
-    PWM_Load(&motor_D,-8000);
+    PWM_Load(&motor_C,-6000);
+    PWM_Load(&motor_D,-6000);
     Kalman_Init(&kfp_x);
     Kalman_Init(&kfp_y);
     Kalman_Init(&kfp_z);
@@ -61,8 +61,8 @@ int main(void) {
         OLED_ShowFNum(40, 48, SAngle.Angle[2], 6, 8, 1);
 
         OLED_Refresh();
-        // PWM_Load(&motor_A, -6000);  // 装载电机A
-        // PWM_Load(&motor_B,-6000);  // 装载电机A
+//        PWM_Load(&motor_A, -6000);  // 装载电机A
+//        PWM_Load(&motor_B,-6000);  // 装载电机A
         // PWM_Load(&motor_C, 7000);  // 装载电机A
         // PWM_Load(&motor_D, 7000);  // 装载电机A
         // command_1();
@@ -72,7 +72,7 @@ int main(void) {
             ADC_Low_Values[0], ADC_Low_Values[1],
             X_PID_OUT, Y_PID_OUT
        );
-       PID_Update();
+        PID_Update();
         TOF10120_GetData();  // 测距
     }
 }

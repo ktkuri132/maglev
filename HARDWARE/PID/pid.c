@@ -2,8 +2,8 @@
 #include "usart.h"
 #include <stdint.h>
 
-float X_Set=3850;//X轴目标值
-float Y_Set=3750;//Y轴目标值
+float X_Set=2924;//X轴目标值
+float Y_Set=2915;//Y轴目标值
 float Z_Set=0;//Z轴目标值
 
 int32_t X_PID_OUT;//左轮PWM输出值
@@ -17,9 +17,9 @@ PID_TypeDef Z_PID;//转向PID
 
 void PID_Init(void)//PID初始化
 {	
-	X_PID.KP = -80;
+	X_PID.KP = -30;
     X_PID.KI = 0;
-	X_PID.KD = -50;
+	X_PID.KD = 0;
 	Y_PID.KP = X_PID.KP;
     Y_PID.KI = X_PID.KI;
 	Y_PID.KD = X_PID.KD;
