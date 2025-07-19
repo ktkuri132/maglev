@@ -9,7 +9,7 @@ void Kalman_Init(Kalman *kalman)
 	kalman->out = 0;			
 	kalman->Kg = 0;		
 	kalman->Q = 0.009;//越大越不顺滑，响应越快  0.009
-	kalman->R = 0.01;
+	kalman->R = 0.10;
 	kalman->source = 0;
 }
 

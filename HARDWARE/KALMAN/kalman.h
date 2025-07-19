@@ -11,7 +11,7 @@ typedef struct
     float R;//π€≤‚‘Î…˘–≠∑Ω≤Ó
 	  float source;
 }Kalman;
-extern Kalman kfp_x,kfp_y;
+extern Kalman kfp_x,kfp_y,kfp_z;
 
 
 void Kalman_Init(Kalman *kalman);

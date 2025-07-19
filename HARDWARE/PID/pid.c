@@ -17,34 +17,34 @@ PID_TypeDef Z_PID;//转向PID
 
 void PID_Init(void)//PID初始化
 {	
-	X_PID.KP = -30;
+    X_PID.KP = -30;
     X_PID.KI = 0;
 	X_PID.KD = 0;
 	Y_PID.KP = X_PID.KP;
     Y_PID.KI = X_PID.KI;
 	Y_PID.KD = X_PID.KD;
+    
     X_PID.Err = 0.0f;
     X_PID.LastErr = 0.0f;
-	  X_PID.PenultErr = 0.0f;
+	X_PID.PenultErr = 0.0f;
     X_PID.Integral = 0.0f;
-	  X_PID.limit = 8400;
-	  X_PID.PID_Out = 0; 
+	X_PID.limit = 8400;
+	X_PID.PID_Out = 0; 
 	
     Y_PID.Err = 0.0f;
     Y_PID.LastErr = 0.0f;
-	  Y_PID.PenultErr = 0.0f;
+	Y_PID.PenultErr = 0.0f;
     Y_PID.Integral = 0.0f;
-	  Y_PID.limit = 8400;
-	  Y_PID.PID_Out = 0;
+	Y_PID.limit = 8400;
+	Y_PID.PID_Out = 0;
 	
-	  Z_PID.Err = 0.0f;
+	Z_PID.Err = 0.0f;
     Z_PID.LastErr = 0.0f;
-	  Z_PID.PenultErr = 0.0f;
+	Z_PID.PenultErr = 0.0f;
     Z_PID.Integral = 0.0f;
-	  Z_PID.limit = 8400;
-	  Z_PID.PID_Out = 0;
+	Z_PID.limit = 8400;
+	Z_PID.PID_Out = 0;
 }
-
 
 int16_t PID_Calculate(PID_TypeDef *PID,float TargetValue,int32_t CurrentValue)
 {
@@ -54,14 +54,10 @@ int16_t PID_Calculate(PID_TypeDef *PID,float TargetValue,int32_t CurrentValue)
     PID->Integral += PID->Err;
 	  // 3.积分限幅
     PID->Integral=PID->Integral>1000?1000:PID->Integral<(-1000)?(-1000):PID->Integral;	
-	  // 4.PID算法实现          
-    PID->a=PID->KP * PID->Err;
-        PID->b  =PID->KI * PID->Integral;
-        PID->c             =PID->KD * (PID->Err - PID->LastErr);
-//    PID->PID_Out = PID->KP * PID->Err 								  /*比例*/
-//				         + PID->KI * PID->Integral              /*积分*/
-//			           + PID->KD * (PID->Err - PID->LastErr);	/*微分*/
-       PID->PID_Out=PID->a+PID->b+PID->c;
+	  // 4.PID算法实现
+    PID->PID_Out = PID->KP * PID->Err 								  /*比例*/
+				         + PID->KI * PID->Integral              /*积分*/
+			           + PID->KD * (PID->Err - PID->LastErr);	/*微分*/
 	  // 5.更新上一次误差
 	  PID->LastErr = PID->Err;//保留上一次的偏差
 	  // 6.限幅
@@ -100,6 +96,5 @@ void Z_PID_SET(float KP,float KI,float KD)//转向PID设置
 void PID_Update(){
     Y_PID.KP=X_PID.KP;
 	Y_PID.KI=X_PID.KI;
-	Y_PID.KD=X_PID.KD;
-    
+	Y_PID.KD=X_PID.KD;    
 }

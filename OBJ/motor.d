@@ -36,9 +36,9 @@
 ..\obj\motor.o: ..\FWLIB\inc\stm32f4xx_dac.h
 ..\obj\motor.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
 ..\obj\motor.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
-..\obj\motor.o: ..\HARDWARE\PID\pid.h
-..\obj\motor.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\motor.o: ..\SYSTEM\usart\usart.h
 ..\obj\motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\motor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\motor.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\motor.o: ..\SYSTEM\delay\delay.h
+..\obj\motor.o: ..\HARDWARE\PID\pid.h

@@ -22,9 +22,6 @@ typedef struct
 	  float PenultErr;//上上一时刻的误差值
     float Integral;//积分累加值
 	  float limit;//限幅
-    float a;
-        float b;
-        float c;
 	  int32_t PID_Out;
 }PID_TypeDef;
 
@@ -36,7 +33,6 @@ void X_PID_SET(float KP,float KI,float KD);//左轮电机PID设置
 void Y_PID_SET(float KP,float KI,float KD);//右轮电机PID设置
 void Z_PID_SET(float KP,float KI,float KD);//转向PID设置
 void PID_Update();
-
 
 #endif
 

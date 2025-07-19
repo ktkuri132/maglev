@@ -1,0 +1,91 @@
+T2D50 000:032.521   SEGGER J-Link V8.26 Log File
+T2D50 000:032.669   DLL Compiled: Apr 11 2025 07:49:49
+T2D50 000:032.675   Logging started @ 2025-07-07 04:41
+T2D50 000:032.680   Process: C:\Users\34575\AppData\Local\Keil_v5\UV4\UV4.exe
+T2D50 000:032.687 - 32.684ms 
+T2D50 000:032.696 JLINK_SetWarnOutHandler(...)
+T2D50 000:032.700 - 0.006ms 
+T2D50 000:032.706 JLINK_OpenEx(...)
+T2D50 000:036.261   Firmware: J-Link ARM V8 compiled Jan 31 2018 18:34:52
+T2D50 000:036.906   Firmware: J-Link ARM V8 compiled Jan 31 2018 18:34:52
+T2D50 000:038.371   Hardware: V8.00
+T2D50 000:038.381   S/N: 20080643
+T2D50 000:038.388   OEM: SEGGER
+T2D50 000:038.396   Feature(s): RDI,FlashDL,FlashBP,JFlash,GDBFull
+T2D50 000:038.567   Bootloader: (FW returned invalid version)
+T2D50 000:039.295   TELNET listener socket opened on port 19021
+T2D50 000:039.533   WEBSRV WEBSRV_Init(): Starting webserver thread(s)
+T2D50 000:039.702   WEBSRV Webserver running on local port 19080
+T2D50 000:039.807   Looking for J-Link GUI Server exe at: C:\Users\34575\AppData\Local\Keil_v5\ARM\Segger\JLinkGUIServer.exe
+T2D50 000:039.960   Looking for J-Link GUI Server exe at: C:\Program Files\SEGGER\JLink_V826\JLinkGUIServer.exe
+T2D50 000:040.003   Forking J-Link GUI Server: C:\Program Files\SEGGER\JLink_V826\JLinkGUIServer.exe
+T2D50 000:042.708   J-Link GUI Server info: "J-Link GUI server V8.26 "
+T2D50 000:042.938 - 10.226ms returns "O.K."
+T2D50 000:042.955 JLINK_GetEmuCaps()
+T2D50 000:042.963 - 0.005ms returns 0xB9FF7BBF
+T2D50 000:042.973 JLINK_TIF_GetAvailable(...)
+T2D50 000:043.134 - 0.160ms 
+T2D50 000:043.142 JLINK_SetErrorOutHandler(...)
+T2D50 000:043.148 - 0.005ms 
+T2D50 000:043.168 JLINK_ExecCommand("ProjectFile = "C:\Users\34575\Desktop\²âÊÔTOF\²âÊÔTOF\USER\JLinkSettings.ini"", ...). 
+T2D50 000:053.022   Ref file found at: C:\Users\34575\AppData\Local\Keil_v5\ARM\Segger\JLinkDevices.ref
+T2D50 000:053.170   REF file references invalid XML file: C:\Program Files\SEGGER\JLink_V826\JLinkDevices.xml
+T2D50 000:054.469 - 11.302ms returns 0x00
+T2D50 000:058.523 JLINK_ExecCommand("Device = STM32F407ZG", ...). 
+T2D50 000:061.347   Device "STM32F407ZG" selected.
+T2D50 000:061.692 - 3.146ms returns 0x00
+T2D50 000:061.702 JLINK_ExecCommand("DisableConnectionTimeout", ...). 
+T2D50 000:061.714   ERROR: Unknown command
+T2D50 000:061.721 - 0.013ms returns 0x01
+T2D50 000:061.727 JLINK_GetHardwareVersion()
+T2D50 000:061.732 - 0.004ms returns 80000
+T2D50 000:061.737 JLINK_GetDLLVersion()
+T2D50 000:061.742 - 0.004ms returns 82600
+T2D50 000:061.749 JLINK_GetOEMString(...)
+T2D50 000:061.756 JLINK_GetFirmwareString(...)
+T2D50 000:061.761 - 0.006ms 
+T2D50 000:068.754 JLINK_GetDLLVersion()
+T2D50 000:068.782 - 0.027ms returns 82600
+T2D50 000:068.790 JLINK_GetCompileDateTime()
+T2D50 000:068.796 - 0.005ms 
+T2D50 000:071.073 JLINK_GetFirmwareString(...)
+T2D50 000:071.093 - 0.019ms 
+T2D50 000:073.526 JLINK_GetHardwareVersion()
+T2D50 000:073.544 - 0.018ms returns 80000
+T2D50 000:075.556 JLINK_GetSN()
+T2D50 000:075.571 - 0.014ms returns 20080643
+T2D50 000:078.062 JLINK_GetOEMString(...)
+T2D50 000:084.368 JLINK_TIF_Select(JLINKARM_TIF_SWD)
+T2D50 000:085.015 - 0.648ms returns 0x00
+T2D50 000:085.024 JLINK_HasError()
+T2D50 000:085.036 JLINK_SetSpeed(5000)
+T2D50 000:085.101 - 0.064ms 
+T2D50 000:085.109 JLINK_GetId()
+T2D50 000:087.233   InitTarget() start
+T2D50 000:087.249    J-Link Script File: Executing InitTarget()
+T2D50 000:089.729   SWD selected. Executing JTAG -> SWD switching sequence.
+T2D50 000:095.155   DAP initialized successfully.
+T2D50 000:606.795   Timeout while waiting for CPU to halt.
+T2D50 000:609.771   Can not attach to CPU. Trying connect under reset.
+T2D50 000:663.980   SWD selected. Executing JTAG -> SWD switching sequence.
+T2D50 000:670.332   DAP initialized successfully.
+T2D50 001:235.424   Timeout while waiting for CPU to halt.
+T2D50 001:237.165   Connecting to CPU via connect under reset failed.
+T2D50 001:290.953   InitTarget() end - Took 1.20s
+T2D50 001:295.034   Connect failed. Resetting via Reset pin and trying again.
+T2D50 001:360.049   InitTarget() start
+T2D50 001:360.076    J-Link Script File: Executing InitTarget()
+T2D50 001:362.383   SWD selected. Executing JTAG -> SWD switching sequence.
+T2D50 001:369.549   DAP initialized successfully.
+T2D50 001:878.411   Timeout while waiting for CPU to halt.
+T2D50 001:880.031   Can not attach to CPU. Trying connect under reset.
+T2D50 001:934.073   SWD selected. Executing JTAG -> SWD switching sequence.
+T2D50 001:939.768   DAP initialized successfully.
+T2D50 002:504.570   Timeout while waiting for CPU to halt.
+T2D50 002:506.506   Connecting to CPU via connect under reset failed.
+T2D50 002:560.904   InitTarget() end - Took 1.19s
+T2D50 002:560.927 - 2475.817ms returns 0x00000000
+T2D50 004:298.519 JLINK_Close()
+T2D50 004:310.742 - 12.223ms
+T2D50 004:310.767   
+T2D50 004:310.772   Closed

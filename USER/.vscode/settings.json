@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "tof10120.h": "c",
+        "sys.h": "c",
+        "tof.h": "c",
+        "stdint.h": "c"
+    }
+}
