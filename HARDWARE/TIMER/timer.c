@@ -65,9 +65,11 @@ void TIM7_IRQHandler(void)
 			KalmanFilter(&kfp_y, ADC_Low_Values[1]);
 			KalmanFilter(&kfp_z, ADC_Low_Values[2]);
              
+			XI_PID_OUT = PID_Calculate(&XI_PID,0,ADC_Values[3]);	//左轮电流
+			YI_PID_OUT = PID_Calculate(&YI_PID,0,ADC_Values[4]);	//右轮电流
+
             X_PID_OUT = PID_Calculate(&X_PID,X_Set,kfp_x.out);	//X轴
             Y_PID_OUT = PID_Calculate(&Y_PID,Y_Set,kfp_y.out);	//Y轴
-//				Z_PID_OUT = PID_Calculate(&Z_PID,Z_Set,ADC_Values[2]);	//Z轴
 		 }
          PWM_Load(&motor_A,X_PID_OUT);//装载电机
          PWM_Load(&motor_B,Y_PID_OUT);//装载电机

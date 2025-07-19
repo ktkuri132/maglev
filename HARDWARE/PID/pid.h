@@ -10,6 +10,8 @@ extern int32_t X_PID_OUT;//左轮PWM输出值
 extern int32_t Y_PID_OUT;//右轮PWM输出值
 extern int32_t Z_PID_OUT;//转向输出值
 
+extern int32_t XI_PID_OUT;//左轮电流输出值
+extern int32_t YI_PID_OUT;//右轮电流输出值
 
 // PID结构体定义
 typedef struct
@@ -26,6 +28,7 @@ typedef struct
 }PID_TypeDef;
 
 extern PID_TypeDef X_PID, Y_PID,Z_PID;
+extern PID_TypeDef XI_PID, YI_PID;//电流PID
 
 void PID_Init(void);//PID初始化
 int16_t PID_Calculate(PID_TypeDef *PID,float TargetValue,int32_t CurrentValue);//PID计算
