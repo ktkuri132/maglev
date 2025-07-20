@@ -10,8 +10,8 @@ motor motor_D = {0,0,0,0,MOTOR_MAX_PWM};
 
 void Motor_Init(void)//统一初始化
 {
-	Timer1_PWM_Init(8400-1,50-1);//84M/84=1Mhz的计数频率,重装载值500，所以PWM频率为 1M/500=2Khz.
-	Timer8_PWM_Init(8400-1,50-1);//84M/84=1Mhz的计数频率,重装载值500，所以PWM频率为 1M/500=2Khz.
+	Timer1_PWM_Init(8400-1,1-1);//84M/84=1Mhz的计数频率,重装载值500，所以PWM频率为 1M/500=2Khz.
+	Timer8_PWM_Init(8400-1,1-1);//84M/84=1Mhz的计数频率,重装载值500，所以PWM频率为 1M/500=2Khz.
 }
 
 //TIM1 PWM部分初始化 （PA9,PA10为usart1引脚）

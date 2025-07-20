@@ -13,7 +13,6 @@ typedef struct
 }Kalman;
 extern Kalman kfp_x,kfp_y,kfp_z;
 
-
 void Kalman_Init(Kalman *kalman);
 float KalmanFilter(Kalman *kfp,float input);
 

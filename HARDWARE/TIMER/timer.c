@@ -8,7 +8,7 @@
 
 //int ms_flag = 0;//计时器开关，1为开启，0为关闭
 //uint32_t system_millis = 0; // 系统毫秒计数器
-uint8_t Pid_calculate_Flag = 0;//PID开关标志位（默认开）
+uint8_t Pid_calculate_Flag = 1;//PID开关标志位（默认开）
 
 uint16_t ADC_Old_Values[3];
 uint16_t ADC_Low_Values[3];//
@@ -37,7 +37,7 @@ void TIM7_Int_Init(u16 arr,u16 psc)//基本定时器
 	NVIC_Init(&NVIC_InitStructure);
 }
 
-//计算pid
+//计算PID
 void TIM7_IRQHandler(void)
 {
 	if(TIM_GetITStatus(TIM7,TIM_IT_Update)==SET) //溢出中断
@@ -46,35 +46,28 @@ void TIM7_IRQHandler(void)
 //		if(ms_flag==1) system_millis++;
 //		else system_millis=0;
         
-         ADC_Low_Values[0] = ADC_Values[0];
-		 ADC_Low_Values[1] = ADC_Values[1];
-		 ADC_Low_Values[2] = ADC_Values[2];
+        // 更新ADC低通滤波值
+        for(int i = 0; i < 3; i++) {
+            ADC_Low_Values[i] = ADC_Values[i] * 0.3f + ADC_Old_Values[i] * 0.7f;
+            ADC_Old_Values[i] = ADC_Low_Values[i];
+        }
 		
-		//pid每10ms读一次
-		 if(Pid_calculate_Flag==1)
-		 {
-            ADC_Low_Values[0] = ADC_Low_Values[0] * 0.3 + ADC_Old_Values[0] * 0.7; 
-			ADC_Low_Values[1] = ADC_Low_Values[1] * 0.3 + ADC_Old_Values[0] * 0.7; 
-			ADC_Low_Values[2] = ADC_Low_Values[2] * 0.3 + ADC_Old_Values[0] * 0.7; 
-
-			ADC_Old_Values[0] = ADC_Low_Values[0];
-			ADC_Old_Values[1] = ADC_Low_Values[1];
-			ADC_Old_Values[2] = ADC_Low_Values[2];
-
+		//pid每1ms读一次
+		 if(Pid_calculate_Flag==1){
+            //低通之后进行卡尔曼滤波
             KalmanFilter(&kfp_x, ADC_Low_Values[0]);
 			KalmanFilter(&kfp_y, ADC_Low_Values[1]);
 			KalmanFilter(&kfp_z, ADC_Low_Values[2]);
              
-			XI_PID_OUT = PID_Calculate(&XI_PID,0,ADC_Values[3]);	//左轮电流
-			YI_PID_OUT = PID_Calculate(&YI_PID,0,ADC_Values[4]);	//右轮电流
+			XI_PID_OUT = PID_Calculate(&XI_PID,1900,ADC_Values[3]);	//左轮电流
+			YI_PID_OUT = PID_Calculate(&YI_PID,1900,ADC_Values[4]);	//右轮电流
 
-            X_PID_OUT = PID_Calculate(&X_PID,X_Set,kfp_x.out);	//X轴
-            Y_PID_OUT = PID_Calculate(&Y_PID,Y_Set,kfp_y.out);	//Y轴
+            X_PID_OUT = PID_Calculate(&X_PID,XI_PID_OUT,kfp_x.out);	//X轴
+            Y_PID_OUT = PID_Calculate(&Y_PID,YI_PID_OUT,kfp_y.out);	//Y轴
 		 }
-         PWM_Load(&motor_A,X_PID_OUT);//装载电机
-         PWM_Load(&motor_B,Y_PID_OUT);//装载电机
-//				PWM_Load(&motor_C,Z_PID_OUT);//装载电机
-//				PWM_Load(&motor_D,Z_PID_OUT);//装载电机
+        PWM_Load(&motor_A,X_PID_OUT);//装载电机
+        PWM_Load(&motor_B,Y_PID_OUT);//装载电机
+
 	}
     TIM_ClearITPendingBit(TIM7,TIM_IT_Update); //清除中断标志位(从0开始计数)
 }

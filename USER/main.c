@@ -47,14 +47,14 @@ int main(void)
 	  OLED_ShowFNum(20,8,ADC_Values[1],6,8,1);
 	  OLED_ShowString(0,16,"Z:",8,1);
 	  OLED_ShowFNum(20,16,ADC_Values[2],6,8,1);
-      OLED_ShowString(0,8,"dianliu1:",8,1);
-	  OLED_ShowFNum(20,8,ADC_Values[3],6,8,1);
-	  OLED_ShowString(0,16,"dianliu2:",8,1);
-	  OLED_ShowFNum(20,16,ADC_Values[4],6,8,1);
+      OLED_ShowString(0,24,"I1:",8,1);
+	  OLED_ShowFNum(20,24,ADC_Values[3],6,8,1);
+	  OLED_ShowString(0,32,"I2:",8,1);
+	  OLED_ShowFNum(20,32,ADC_Values[4],6,8,1);
 		
-	  OLED_ShowString(0,24,"len:",8,1);
-	  OLED_ShowNum(40,24,length_val,3,8,1);
-	  OLED_ShowString(70,24,"mm",8,1);
+//	  OLED_ShowString(0,24,"len:",8,1);
+//	  OLED_ShowNum(40,24,length_val,3,8,1);
+//	  OLED_ShowString(70,24,"mm",8,1);
 		
 //	  OLED_ShowString(0,32,"Roll:",8,1);
 //	  OLED_ShowFNum(40,32,SAngle.Angle[0],6,8,1);
@@ -76,13 +76,8 @@ int main(void)
 //      TIM_SetCompare4(TIM8,8000);//调节通道四占空比
 //		PWM_Load(&motor_A,-1000);
 //		PWM_Load(&motor_B,-1000);
-        printf("%d,%d,%f,%f,%d,%d,%d,%d\r\n",
-            ADC_Values[0], ADC_Values[1],
-            kfp_x.out, kfp_y.out,
-            ADC_Low_Values[0], ADC_Low_Values[1],
-            X_PID_OUT, Y_PID_OUT
-       );
-       PID_Update();
+        printf("%d,%d,%d,%d\r\n",XI_PID_OUT, YI_PID_OUT,ADC_Values[3],ADC_Values[4]);
+//       PID_Update();
 		
 	   TOF10120_GetData();//测距
 	}		

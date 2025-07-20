@@ -10,8 +10,8 @@ uint16_t ADC_Values[5] = {0}; // 存储CH5/6/7的转换值
   A5-->X
   A6-->Y
   A7-->Z
-  B0-->Y
-  B1-->Z
+  B0-->XI
+  B1-->YI
 */
 /*=============================================初始化ADC=============================================*/															   
 void  Adc_Init(void)
@@ -85,7 +85,7 @@ void DMA_Config(void)
   DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)ADC1_DR_ADDRESS;//DMA2外设地址
   DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)ADC_Values;//DMA2存储器0地址
   DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;//外设到存储器模式
-  DMA_InitStructure.DMA_BufferSize = 3;//设定一次传输的数据个数（数据传输量）
+  DMA_InitStructure.DMA_BufferSize = 5;//设定一次传输的数据个数（数据传输量）
   DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;//外设非增量模式
   DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;//存储器增量模式
   DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;//外设数据长度为16位（半字节）

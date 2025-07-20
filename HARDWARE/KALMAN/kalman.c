@@ -1,3 +1,4 @@
+#include <stm32f4xx.h>
 #include "kalman.h"
 
 Kalman kfp_x,kfp_y,kfp_z;

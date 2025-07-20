@@ -2,14 +2,13 @@
 #include "usart.h"
 #include <stdint.h>
 
-float X_Set=2924;//X轴目标值
-float Y_Set=2915;//Y轴目标值
+float X_Set=2875;//X轴目标值 2924  +2875
+float Y_Set=2898;//Y轴目标值2870   +2890   （减上大）
 float Z_Set=0;//Z轴目标值
 
 int32_t X_PID_OUT;//左轮PWM输出值
 int32_t Y_PID_OUT;//右轮PWM输出值
 int32_t Z_PID_OUT;//转向输出值
-
 int32_t XI_PID_OUT;//左轮电流输出值
 int32_t YI_PID_OUT;//右轮电流输出值
 
@@ -17,25 +16,25 @@ int32_t YI_PID_OUT;//右轮电流输出值
 PID_TypeDef X_PID;//左轮电机PID
 PID_TypeDef Y_PID;//右轮电机PID
 PID_TypeDef Z_PID;//转向PID
-
 PID_TypeDef XI_PID;//电流PID
-PID_TypeDef YI_PID;//电流PID
+PID_TypeDef YI_PID;//电流PID       
 
 void PID_Init(void)//PID初始化
 {	
-    X_PID.KP = -30;
+    X_PID.KP = -10;
     X_PID.KI = 0;
-	X_PID.KD = 0;
-	Y_PID.KP = X_PID.KP;
-    Y_PID.KI = X_PID.KI;
-	Y_PID.KD = X_PID.KD;
+	X_PID.KD = -100;
 
-    XI_PID.KP = -30;
+	Y_PID.KP = -10;
+    Y_PID.KI = 0;
+	Y_PID.KD = -100;
+
+    XI_PID.KP = -0.4;
     XI_PID.KI = 0;
 	XI_PID.KD = 0;
-	YI_PID.KP = XI_PID.KP;
-    YI_PID.KI = XI_PID.KI;
-	YI_PID.KD = XI_PID.KD;
+	YI_PID.KP = -0.4;
+    YI_PID.KI = 0;
+	YI_PID.KD = 0;
 
     X_PID.Err = 0.0f;
     X_PID.LastErr = 0.0f;
@@ -98,6 +97,8 @@ int16_t PID_Calculate(PID_TypeDef *PID,float TargetValue,int32_t CurrentValue)
 	}
     return PID->PID_Out;
 }
+
+
 
 void X_PID_SET(float KP,float KI,float KD)//左轮电机PID设置
 {
